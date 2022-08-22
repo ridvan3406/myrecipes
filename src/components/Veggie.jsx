@@ -22,7 +22,7 @@ const Veggie = () => {
       const data = await api.json();
       console.log(data);
       localStorage.setItem("veggie", JSON.stringify(data.recipes));
-      console.log(data);
+      console.log(data.recipes[0].extendedIngredients[0].name);
       setVeggie(data.recipes);
     }
   };
