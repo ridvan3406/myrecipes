@@ -5,7 +5,7 @@ import { Button, Stack, TextField } from "@mui/material";
 import SelectAllergens from "./SelectAllergen.jsx";
 import SelectCuisine from "./SelectCuisine.jsx";
 import Autocomplete from "@mui/material/Autocomplete";
-import SearchAuto from "./SearchAuto";
+
 
 const Search = () => {
   const [input, setInput] = useState("");
@@ -81,6 +81,7 @@ const Search = () => {
               value={input}
                 // onChange={(e) => setInput(e.target.value)}
             //   onChange={handleChange}
+            onclick={(e) => setInput(e.target.value)}
               type="text"
             />
           </Stack>
