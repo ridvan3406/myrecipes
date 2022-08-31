@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { FaSearch } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
-import { TextField } from "@mui/material";
+import { useNavigate, useParams } from "react-router-dom";
+import { Button, Stack, TextField } from "@mui/material";
 import SelectAllergens from "./SelectAllergen.jsx";
 import SelectCuisine from "./SelectCuisine.jsx";
+import Autocomplete from "@mui/material/Autocomplete";
+import SearchAuto from "./SearchAuto";
 
 const Search = () => {
   const [input, setInput] = useState("");
@@ -13,81 +14,90 @@ const Search = () => {
   const navigate = useNavigate();
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log("ridvan");
-    navigate(`/search/query=${input}&intolarence=${allergen.join(',')}&cuisine=${cuisineName.join(',')}`);
+    navigate(
+      `/search/query=${input}&intolarence=${allergen.join(
+        ","
+      )}&cuisine=${cuisineName.join(",")}`
+    );
   };
-console.log(input,allergen,cuisineName)
+
+  const handleChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setInput(typeof value === "string" ? value.split(",") : value);
+  };
+
+  console.log(input, allergen, cuisineName);
+
+  const [titles, setTitles] = useState([]);
+  let params = useParams();
+
+  const getSearchResultsTitles = async (name) => {
+    const data = await fetch(
+      `https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.REACT_APP_API_KEY}&${name}`
+    );
+    const recipes = await data.json();
+    setTitles(recipes.results);
+    console.log(recipes.results);
+  };
+  useEffect(() => {
+    getSearchResultsTitles(params.search);
+    console.log(params);
+  }, [params.search]);
+
   return (
-    <FormStyle onSubmit={submitHandler}>
+    <div onSubmit={submitHandler}>
       <div
         style={{
-          margin: "20px",
-          display: "flex",
-          alignItems: "center",
+          display: "grid",
           justifyContent: "center",
+          alignItems: "center",
+          justifyItems: "center",
         }}
       >
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Search recipe"
-        />
-        
-        <SelectAllergens allergen={allergen} setAllergen={setAllergen}/>
-        <SelectCuisine cuisineName={cuisineName} setCuisineName={setCuisineName}/>
-        <button onClick={submitHandler}>search</button>
+        <div
+          style={{
+            margin: "20px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {/* <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Search recipe"
+          /> */}
+          <Stack spacing={2} sx={{ width: 300, margin: 1 }}>
+            <Autocomplete
+              id="free-solo-demo"
+              freeSolo
+              options={titles.map((option) => option.title || "")}
+              renderInput={(params) => (
+                <TextField {...params} label="Search Recipe" />
+              )}
+              value={input}
+                // onChange={(e) => setInput(e.target.value)}
+            //   onChange={handleChange}
+              type="text"
+            />
+          </Stack>
+          {/* <SearchAuto input={input} setInput={setInput} /> */}
+          <SelectAllergens allergen={allergen} setAllergen={setAllergen} />
+          <SelectCuisine
+            cuisineName={cuisineName}
+            setCuisineName={setCuisineName}
+          />
+        </div>
+
+        <Button variant="contained" onClick={submitHandler}>
+          Search
+        </Button>
       </div>
-    
-    </FormStyle>
+    </div>
   );
 };
-
-const FormStyle = styled.form`
-  margin: 0rem 0rem;
-  display: inline-flex;
-  justify-content: center;
-  div {
-    width: 100%;
-    position: relative;
-  }
-
-  input {
-    border: 1px solid black;
-    background: white;
-    font-size: 1.5rem;
-    color: black;
-    padding: 1rem 3rem;
-    border-radius: 5px;
-    outline: none;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    min-width: 20rem;
-    height: 60px;
-    svg {
-      position: absolute;
-      top: 50%;
-      left: 0%;
-      transform: translate(100%, -50%);
-      color: white;
-    }
-  }
-`;
-
-const SearchField = styled.input`
-  border: 1px solid black;
-  background: white;
-  font-size: 1.5rem;
-  color: black;
-  padding: 1rem 3rem;
-  border-radius: 5px;
-  outline: none;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  min-width: 20rem;
-  height: 60px;
-`;
 
 export default Search;

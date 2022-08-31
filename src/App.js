@@ -9,7 +9,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Search />
-        <Category />
+        {/* <Category /> */}
        <Pages />
       </BrowserRouter>
     </div>

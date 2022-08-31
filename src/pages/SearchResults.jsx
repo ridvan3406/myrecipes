@@ -1,6 +1,8 @@
+import { Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+
 
 const SearchResults = () => {
   const [searchedRecipes, setSearchedRecipes] = useState([]);
@@ -12,21 +14,37 @@ const SearchResults = () => {
     );
     const recipes = await data.json();
     setSearchedRecipes(recipes.results);
+    console.log(recipes.results)
+    console.log(recipes.results.length);
   };
   useEffect(() => {
     getSearchResults(params.search);
     console.log(params);
   }, [params.search]);
-  return <Grid>
-    {searchedRecipes.map((item) => {
-        return(
-            <Card key={item.id}>
-                <img src={item.image} alt=''/>
-                <h4>{item.title}</h4>
-            </Card>
-        )
-    })}
-  </Grid>;
+
+  return (
+    <div>
+      <SearchResult>Found {searchedRecipes.length} recipes</SearchResult>
+      {searchedRecipes.length > 0 ? (
+        <div>
+          <Grid>
+            {searchedRecipes.map((item) => {
+              return (
+                <Card key={item.id}>
+                  <img src={item.image} alt="" />
+                  <h4>{item.title}</h4>
+                </Card>
+              );
+            })}
+          </Grid>
+        </div>
+      ) : (
+        <Button variant="contained" href="/">
+          Home Page
+        </Button>
+      )}
+    </div>
+  );
 };
 
 const Grid = styled.div`
@@ -47,6 +65,10 @@ const Card = styled.div`
     padding: 1rem;
   }
 `;
-
+const SearchResult = styled.p`
+  text-align: left;
+  padding-bottom: 2rem;
+  font-size: 1.5rem;
+`;
 
 export default SearchResults;
