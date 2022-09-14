@@ -1,17 +1,22 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import NotFoundimage from "../images/404image.png";
 import Button from "@mui/material/Button";
-import HomeIcon from "@mui/icons-material/Home";
+import { ResetButton, SearchButton } from "../components/Search";
+import { useNavigate } from "react-router-dom";
 
 const NotFoundPage = () => {
+  const navigate = useNavigate();
+  const clickHandler = (e) => {
+    e.preventDefault();
+    navigate(`/`);
+  };
   return (
     <div className="container-div">
       <p>
         <h3 className="not-found-message">This page could not be found</h3>
-        <Button variant="contained" href="/">
+        <SearchButton variant="contained" onClick={clickHandler}>
           Home Page
-        </Button>
+        </SearchButton>
           <img src={NotFoundimage} className="center" alt="404-not-found" />
       </p>
     </div>

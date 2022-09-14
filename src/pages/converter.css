@@ -1,0 +1,30 @@
+.converter {
+  font-family: Arial, Helvetica, sans-serif;
+}
+p{
+  text-align:center;
+  margin-top: 40px;
+  font-size: 44px;
+  font-weight: 700;
+}
+
+.converter span {
+  transition: color 1s ease;
+}
+
+.form-label {
+  font-weight: 500;
+}
+
+.result {
+  text-align:center;
+  margin-top: 20px;
+  font-size: 24px;
+  color:black
+}
+
+.invalidResult {
+  color: #dc3545;
+  font-weight: bold;
+  font-style: italic;
+}

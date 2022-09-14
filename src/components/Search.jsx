@@ -5,6 +5,40 @@ import { Button, Stack, TextField } from "@mui/material";
 import SelectAllergens from "./SelectAllergen.jsx";
 import SelectCuisine from "./SelectCuisine.jsx";
 import Autocomplete from "@mui/material/Autocomplete";
+import { Box } from "@mui/system";
+import "./Navbar.css";
+import "./style.css";
+
+export const SearchButton = styled.button`
+  margin-right: 2px;
+  background-color: #1f5156;
+  color: #f5b921;
+  border: 1px solid #1f5156;
+  border-radius: 5px;
+  height: 40px;
+  width: 150px;
+  min-width: 100px;
+  font-size: 20px;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.5s;
+  &:hover {
+    color: #1f5156;
+    background-color: #f5b921;
+    border: 1px solid #f5b921;
+  }
+`;
+export const ResetButton = styled(SearchButton)`
+  background-color: #cbc9c9;
+  color: #ffffff;
+  border: 1px solid #808080;
+  
+  &:hover {
+    color: #1f5156;
+    background-color: #f5b921;
+    border: 1px solid #f5b921;
+  }
+`;
 
 
 const Search = () => {
@@ -21,11 +55,15 @@ const Search = () => {
     );
   };
 
-  const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setInput(typeof value === "string" ? value.split(",") : value);
+  const resetHandler = (e) => {
+    setInput("");
+    setAllergen([]);
+    setCuisineName([]);
+    console.log("reset");
+    e.preventDefault();
+    navigate(
+      `/search/query=&intolarence=&cuisine=`
+    );
   };
 
   console.log(input, allergen, cuisineName);
@@ -39,12 +77,11 @@ const Search = () => {
     );
     const recipes = await data.json();
     setTitles(recipes.results);
-    console.log(recipes.results);
   };
   useEffect(() => {
     getSearchResultsTitles(params.search);
     console.log(params);
-  }, [params.search]);
+  }, [params.search])
 
   return (
     <div onSubmit={submitHandler}>
@@ -64,12 +101,6 @@ const Search = () => {
             justifyContent: "center",
           }}
         >
-          {/* <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Search recipe"
-          /> */}
           <Stack spacing={2} sx={{ width: 300, margin: 1 }}>
             <Autocomplete
               id="free-solo-demo"
@@ -79,23 +110,27 @@ const Search = () => {
                 <TextField {...params} label="Search Recipe" />
               )}
               value={input}
-                // onChange={(e) => setInput(e.target.value)}
-            //   onChange={handleChange}
-            onclick={(e) => setInput(e.target.value)}
-              type="text"
+              type="search"
+              onChange={(event, value) => {
+                setInput(value, event);
+              }}
+              //   onInputChange={(event,value) =>{setInput(value, event)}}
             />
           </Stack>
-          {/* <SearchAuto input={input} setInput={setInput} /> */}
           <SelectAllergens allergen={allergen} setAllergen={setAllergen} />
           <SelectCuisine
             cuisineName={cuisineName}
             setCuisineName={setCuisineName}
           />
         </div>
-
-        <Button variant="contained" onClick={submitHandler}>
-          Search
-        </Button>
+        <Box display="flex">
+          <SearchButton variant="contained" onClick={submitHandler}>
+            Search
+          </SearchButton>
+          <ResetButton variant="contained" onClick={resetHandler}>
+            Reset
+          </ResetButton>
+        </Box>
       </div>
     </div>
   );
