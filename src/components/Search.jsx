@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
-import { Button, Stack, TextField } from "@mui/material";
+import {Stack, TextField } from "@mui/material";
 import SelectAllergens from "./SelectAllergen.jsx";
 import SelectCuisine from "./SelectCuisine.jsx";
 import Autocomplete from "@mui/material/Autocomplete";

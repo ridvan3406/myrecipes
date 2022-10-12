@@ -1,7 +1,6 @@
 import React from "react";
 import NotFoundimage from "../images/404image.png";
-import Button from "@mui/material/Button";
-import { ResetButton, SearchButton } from "../components/Search";
+import {SearchButton } from "../components/Search";
 import { useNavigate } from "react-router-dom";
 
 const NotFoundPage = () => {

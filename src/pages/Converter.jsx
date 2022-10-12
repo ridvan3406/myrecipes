@@ -4,7 +4,6 @@ import UnitSelect from "./UnitSelect";
 import Qty from "js-quantities";
 import { FormControl, TextField } from "@mui/material";
 import { SearchButton } from "../components/Search";
-import SearchResult from "./SearchResults";
 
 export default function Converter() {
   const [inputValue, updateInputValue] = useState();
@@ -16,6 +15,7 @@ export default function Converter() {
   const handleInputChange = (event) => {
     const val = event.target.value;
     updateInputValue(val);
+    console.log(val)
   };
 
   const unitSelect = (event) => {

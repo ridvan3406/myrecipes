@@ -1,6 +1,5 @@
-import { Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { Link, NavLink, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Search, { SearchButton as HomeButton } from "../components/Search";
 
@@ -27,17 +26,20 @@ const SearchResults = () => {
 
   return (
     <div>
-      <Search/>
+      <Search />
       <SearchResult>Found ' {searchedRecipes.length} ' recipes</SearchResult>
       {searchedRecipes.length > 0 ? (
         <div>
           <Grid>
             {searchedRecipes.map((item) => {
               return (
+                <Link to={"/recipe/" + item.id}>
+
                 <Card key={item.id}>
                   <img src={item.image} alt="" />
                   <h4>{item.title}</h4>
                 </Card>
+                </Link>
               );
             })}
           </Grid>

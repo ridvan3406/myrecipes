@@ -6,7 +6,7 @@ import SearchResults from "./SearchResults";
 import NotFoundPage from "./NotFoundPage";
 import About from "./About";
 import Converter from "./Converter";
-import UnitSelect from "./UnitSelect";
+import Recipe from "./Recipe";
 
 
 const Pages = () => {
@@ -18,6 +18,7 @@ const Pages = () => {
       <Route path="*" element={<NotFoundPage />} component/>
       <Route path="/about" element={<About />} component/>
       <Route path="/convert" element={<Converter />} component/>
+      <Route path="/recipe/:name" element={<Recipe />} component/>
     </Routes>
   );
 };

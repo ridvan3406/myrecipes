@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState,useEffect } from "react";
 import styled from "styled-components";
 // import { motion } from "framer-motion";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const Cuisine = () => {
   const [cuisine, setCuisine] = useState([]);
-  let params = useParams();
+  // let params = useParams();
 
   // const getCuisine = async (name) => {
   //   const data = await fetch(
