@@ -12,17 +12,17 @@ const SearchResults = () => {
     navigate(`/`);
   };
 
-  const getSearchResults = async (name) => {
-    const data = await fetch(
-      `https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.REACT_APP_API_KEY}&${name}`
-    );
-    const recipes = await data.json();
-    setSearchedRecipes(recipes.results);
-  };
-  useEffect(() => {
-    getSearchResults(params.search);
-    console.log(params);
-  }, [params.search]);
+  // const getSearchResults = async (name) => {
+  //   const data = await fetch(
+  //     `https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.REACT_APP_API_KEY}&${name}`
+  //   );
+  //   const recipes = await data.json();
+  //   setSearchedRecipes(recipes.results);
+  // };
+  // useEffect(() => {
+  //   getSearchResults(params.search);
+  //   console.log(params);
+  // }, [params.search]);
 
   return (
     <div>

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/splide/dist/css/splide.min.css";
+//import '@splidejs/react-splide/css/sea-green';
 import { Link } from "react-router-dom";
 
 const Popular = () => {
@@ -32,13 +33,14 @@ const Popular = () => {
       <Wrapper>
         <h3>Popular Picks</h3>
         <Splide
-          options={{
-            perPage: 4,
-            arrows: false,
-            pagination: false,
-            drag: "free",
-            gap: "5rem",
-          }}
+          options={ {
+            perPage: 3,
+            rewind : true,
+            gap    : '1rem',
+          } }
+          aria-labelledby="basic-example-heading"
+          onMoved={ ( splide, newIndex ) => {
+          } }
         >
           {popular.map((recipe) => {
             return (

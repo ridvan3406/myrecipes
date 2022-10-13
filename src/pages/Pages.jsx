@@ -7,6 +7,7 @@ import NotFoundPage from "./NotFoundPage";
 import About from "./About";
 import Converter from "./Converter";
 import Recipe from "./Recipe";
+import LeftNav from "./LeftNav";
 
 
 const Pages = () => {

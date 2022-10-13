@@ -7,7 +7,7 @@ export default function UnitSelect({name,onChange}) {
   return (
     <div >
       <FormControl
-        sx={{ m: 1, minWidth: 120}}
+        sx={{ m: 1, minWidth: 120,width:200}}
       >
         <InputLabel htmlFor="grouped-native-select">{name}</InputLabel>
         <Select
@@ -25,6 +25,7 @@ export default function UnitSelect({name,onChange}) {
             <option value={"gal"}>gallon</option>
             <option value={"pt"}>pint</option>
             <option value={"tb"}>tbsp</option>
+            <option value={"cup"}>cup</option>
           </optgroup>
           <optgroup label="Metric">
             <option value={"g"}>gram</option>

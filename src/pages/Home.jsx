@@ -7,8 +7,8 @@ const Home = () => {
   return (
     <div>
       <Search/>
-      <Veggie />
       <Popular />
+      <Veggie />
     </div>
   );
 };

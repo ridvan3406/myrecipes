@@ -66,22 +66,22 @@ const Search = () => {
     );
   };
 
-  console.log(input, allergen, cuisineName);
+  // console.log(input, allergen, cuisineName);
 
   const [titles, setTitles] = useState([]);
-  let params = useParams();
+  // let params = useParams();
 
-  const getSearchResultsTitles = async (name) => {
-    const data = await fetch(
-      `https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.REACT_APP_API_KEY}&${name}`
-    );
-    const recipes = await data.json();
-    setTitles(recipes.results);
-  };
-  useEffect(() => {
-    getSearchResultsTitles(params.search);
-    console.log(params);
-  }, [params.search])
+  // const getSearchResultsTitles = async (name) => {
+  //   const data = await fetch(
+  //     `https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.REACT_APP_API_KEY}&${name}`
+  //   );
+  //   const recipes = await data.json();
+  //   setTitles(recipes.results);
+  // };
+  // useEffect(() => {
+  //   getSearchResultsTitles(params.search);
+  //   console.log(params);
+  // }, [params.search])
 
   return (
     <div onSubmit={submitHandler}>

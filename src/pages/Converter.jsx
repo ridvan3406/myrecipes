@@ -35,7 +35,7 @@ export default function Converter() {
           const qtyString = inputValue + unit1;
           const qty = new Qty(qtyString);
           const resultNum = qty.to(unit2);
-          const result = inputValue + unit1 + "  is equal to " + resultNum;
+          const result = inputValue + " " + unit1+ "  is equal to " + resultNum.scalar.toFixed(2) + unit2;
           console.log(resultNum.scalar.toFixed(2));
           setResult(result);
           setNotificationClass("result");
@@ -61,12 +61,12 @@ export default function Converter() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          marginTop:50,
         }}
       >
         <div
           style={{
             margin: "20px",
-            display: "flex",
             alignItems: "center",
             justifyContent: "center",
           }}
@@ -79,6 +79,7 @@ export default function Converter() {
             value={inputValue}
             onChange={handleInputChange}
             // onInputChange={e.target.value}
+            sx={{margin:1,width:200}}
           />
           <UnitSelect name="From" onChange={unitSelect} />
           <UnitSelect name="To" onChange={unitSelect} />

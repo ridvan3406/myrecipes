@@ -8,29 +8,28 @@ const Recipe = () => {
   const [details, setDetails] = useState([]);
   const [activeTab, setActiveTab] = useState("instruction");
   let params = useParams();
-  const fetchDetails = async () => {
-    const data = await fetch(
-      `https://api.spoonacular.com/recipes/${params.name}/information?apiKey=${process.env.REACT_APP_API_KEY}`
-    );
-    const detailData = await data.json();
-    setDetails(detailData);
-    console.log(detailData);
-  };
-  useEffect(() => {
-    fetchDetails();
-  }, [params.name]);
+  // const fetchDetails = async () => {
+  //   const data = await fetch(
+  //     `https://api.spoonacular.com/recipes/${params.name}/information?apiKey=${process.env.REACT_APP_API_KEY}`
+  //   );
+  //   const detailData = await data.json();
+  //   setDetails(detailData);
+  //   console.log(detailData);
+  // };
+  // useEffect(() => {
+  //   fetchDetails();
+  // }, [params.name]);
   console.log(details.title);
-  for (const [key, value] of Object.entries(details)) {
-    // console.log(`${key}: ${value}`);
-  }
+  console.log(details.extendedIngredients);
   return (
     <DetailWarepper>
-      <div>
+      <div style={{ display: "inline-grid" }}>
         <h2>{details.title}</h2>
         <img src={details.image} alt="" />
+        <span dangerouslySetInnerHTML={{ __html: details.summary }} />
       </div>
       <Info>
-        <div style={{ display: "flex" }}>
+        <div style={{ display: "flex", marginBottom: "10px" }}>
           <SearchButton
             variant="contained"
             onClick={() => setActiveTab("instruction")}
@@ -49,72 +48,14 @@ const Recipe = () => {
 
         {activeTab === "instruction" && (
           <div>
-            <p dangerouslySetInnerHTML={{ __html: details.summary }}></p>
-            <p dangerouslySetInnerHTML={{ __html: details.instructions }}></p>
+            <span dangerouslySetInnerHTML={{ __html: details.instructions }} />
           </div>
         )}
         {activeTab === "ingredients" && (
           <ul>
-            <li
-              dangerouslySetInnerHTML={{
-                __html: details.extendedIngredients[0].original,
-              }}
-            ></li>
-            <li
-              dangerouslySetInnerHTML={{
-                __html: details.extendedIngredients[1].original,
-              }}
-            ></li>
-            <li
-              dangerouslySetInnerHTML={{
-                __html: details.extendedIngredients[2].original,
-              }}
-            ></li>
-            <li
-              dangerouslySetInnerHTML={{
-                __html: details.extendedIngredients[3].original,
-              }}
-            ></li>
-            <li
-              dangerouslySetInnerHTML={{
-                __html: details.extendedIngredients[4].original,
-              }}
-            ></li>
-            <li
-              dangerouslySetInnerHTML={{
-                __html: details.extendedIngredients[5].original,
-              }}
-            ></li>
-            <li
-              dangerouslySetInnerHTML={{
-                __html: details.extendedIngredients[6].original,
-              }}
-            ></li>
-            <li
-              dangerouslySetInnerHTML={{
-                __html: details.extendedIngredients[7].original,
-              }}
-            ></li>
-             <li
-              dangerouslySetInnerHTML={{
-                __html: details.extendedIngredients[8].original,
-              }}
-            ></li>
-             <li
-              dangerouslySetInnerHTML={{
-                __html: details.extendedIngredients[9].original,
-              }}
-            ></li>
-             <li
-              dangerouslySetInnerHTML={{
-                __html: details.extendedIngredients[10].original,
-              }}
-            ></li>
-             <li
-              dangerouslySetInnerHTML={{
-                __html: details.extendedIngredients[11].original,
-              }}
-            ></li>
+            {details.extendedIngredients.map((ingredient) => (
+              <li key={ingredient.id}>{ingredient.original}</li>
+            ))}
           </ul>
         )}
       </Info>
@@ -135,7 +76,7 @@ const DetailWarepper = styled.div`
   }
   li {
     font-size: 1rem;
-    line-height: 1rem;
+    line-height: 1.5rem;
     text-align: left;
     font-weight: 400;
     margin-top: 0.5rem;
@@ -146,17 +87,19 @@ const DetailWarepper = styled.div`
     text-align: left;
     font-weight: 400;
   }
-  p{
+  span {
     font-size: 1rem;
     text-align: left;
-    font-weight: 400;
-    margin-top: 0.5rem;
+    font-weight: 500;
+    margin-top: 1rem;
+    width: 35rem;
+    line-height: 1.5rem;
   }
 `;
 
 const Info = styled.div`
   margin-left: 3rem;
-  margin-top: 2rem;
+  margin-top: 4rem;
 `;
 
 export default Recipe;

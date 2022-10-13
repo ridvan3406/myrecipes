@@ -32,13 +32,21 @@ const Veggie = () => {
       <Wrapper>
         <h3>Veggies</h3>
         <Splide
-          options={{
-            perPage: 3,
-            arrows: false,
-            pagination: false,
-            drag: "free",
-            gap: "5rem",
-          }}
+          // options={{
+          //   perPage: 3,
+          //   arrows: false,
+          //   pagination: false,
+          //   drag: "free",
+          //   gap: "5rem",
+          // }}
+          options={ {
+            perPage: 4,
+            rewind : true,
+            gap    : '1rem',
+          } }
+          aria-labelledby="basic-example-heading"
+          onMoved={ ( splide, newIndex ) => {
+          } }
         >
           {veggie.map((recipe) => {
             return (

@@ -1,11 +1,14 @@
+import { Button } from "@mui/material";
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import "./Navbar.css";
+import LeftNav from "../pages/LeftNav";
 
-function NavBar() {
+function NavBar({ toggleDrawer, anchor }) {
   const [click, setClick] = useState(false);
 
   const handleClick = () => setClick(!click);
+
   return (
     <>
       <nav className="navbar">
@@ -30,17 +33,6 @@ function NavBar() {
             <li className="nav-item">
               <NavLink
                 exact
-                to="/about"
-                activeClassName="active"
-                className="nav-links"
-                onClick={handleClick}
-              >
-                About
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                exact
                 to="/blog"
                 activeClassName="active"
                 className="nav-links"
@@ -49,17 +41,7 @@ function NavBar() {
                 Blog
               </NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink
-                exact
-                to="/convert"
-                activeClassName="active"
-                className="nav-links"
-                onClick={handleClick}
-              >
-                Converter
-              </NavLink>
-            </li>
+            <LeftNav />
           </ul>
           <div className="nav-icon" onClick={handleClick}>
             <i className={click ? "fas fa-times" : "fas fa-bars"}></i>
